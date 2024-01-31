@@ -4,37 +4,28 @@ direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
 text = input("Type your message:\n").lower()
 shift = int(input("Type the shift number:\n"))
 
-
-def encrypt(text, shift):
-  enc_letters = []
-  # 1. Go through text and collect indexes from alphabet
+def caesar(start_text, shift_amount, cipher_direction):
+  letters = []
   for character in text:
-    new_position = alphabet.index(character) + shift
-    if new_position > 25:
-      new_position = (new_position - 25) - 1
-        
-    new_character = alphabet[new_position]
+    if cipher_direction == "encode":
+      new_position = alphabet.index(character) + shift
+      if new_position > 25:
+        new_position = (new_position - 25) - 1
 
-    enc_letters.append(new_character)
-    
-  encrypted_text = ''.join(enc_letters)
-  print(f"The encoded text is: {encrypted_text}")
+      character = alphabet[new_position]
+      
+      letters.append(character)
+      
+    elif direction == "decode":
+      original_position = alphabet.index(character) - shift
+      original_character = alphabet[original_position]
+  
+      character = alphabet[original_position]
 
-def decrypt(text, shift):
-  dec_letters = []
-  for character in text:
-    original_position = alphabet.index(character) - shift
+      letters.append(original_character)
 
-    original_character = alphabet[original_position]
+  final_text = ''.join(letters)
+  print(f"Here's the {direction}d result: {final_text}")
 
-    dec_letters.append(original_character)
-
-  decoded_text = ''.join(dec_letters)
-  print(f"The decoded text is: {decoded_text}")
-
-
-if direction == 'encode':
-  encrypt(text, shift)
-else:
-  decrypt(text, shift)
+caesar(start_text = text, shift_amount = shift, cipher_direction = direction)
  
